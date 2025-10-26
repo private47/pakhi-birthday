@@ -1,0 +1,116 @@
+@import url('https://fonts.googleapis.com/css2?family=Fredoka+One&family=Poppins:wght@400;600&display=swap');
+
+body {
+  margin: 0;
+  font-family: 'Poppins', sans-serif;
+  background: linear-gradient(135deg, #ff9a9e, #fad0c4);
+  color: #fff;
+  text-align: center;
+  overflow: hidden;
+}
+
+.screen {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  padding: 20px;
+  transition: opacity 0.8s ease;
+}
+
+.hidden {
+  display: none;
+}
+
+button {
+  margin-top: 25px;
+  padding: 12px 28px;
+  font-size: 18px;
+  border: none;
+  border-radius: 25px;
+  background: #fff;
+  color: #ff6f91;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+button:hover {
+  transform: scale(1.1);
+  background-color: #ffe0eb;
+}
+
+#question-box {
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 15px;
+  padding: 25px;
+  width: 80%;
+  max-width: 450px;
+  margin-top: 20px;
+}
+
+#options button {
+  display: block;
+  margin: 10px auto;
+  background: #fff;
+  color: #ff4081;
+}
+
+#reason-text {
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 15px;
+  padding: 25px;
+  width: 80%;
+  max-width: 500px;
+  font-size: 1.2em;
+  min-height: 100px;
+  margin-top: 15px;
+}
+
+h1, h2 {
+  font-family: 'Fredoka One', cursive;
+}
+
+/* ❤️ LOVE Floating Animation */
+#love-animation {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  overflow: hidden;
+  z-index: -1;
+}
+
+.love {
+  position: absolute;
+  font-size: 2em;
+  color: #ff4e88;
+  opacity: 0;
+  animation: floatLove 5s linear infinite;
+}
+
+@keyframes floatLove {
+  0% {
+    transform: translateY(100vh) scale(0.5);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(-10vh) scale(1.5);
+    opacity: 0;
+  }
+}
+
+#celebrateBtn {
+  background: #fff;
+  color: #ff1493;
+  font-size: 18px;
+  margin-top: 15px;
+  border-radius: 30px;
+}
+
+#celebrateBtn:hover {
+  transform: scale(1.1);
+  background-color: #ffe1ef;
+}

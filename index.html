@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>The Birthday Experience 🎂</title>
+  <link rel="stylesheet" href="style.css" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
+</head>
+<body>
+  <div id="app">
+    <!-- Screen 1 -->
+    <section id="intro" class="screen">
+      <h1>🎉 Welcome to “The 27th Birthday Experience” 💕</h1>
+      <p>Celebrating 27 years of <b>you</b> and 6 years of <b>us</b> 😎</p>
+      <button id="startBtn">Start the Fun 🥳</button>
+    </section>
+
+    <!-- Screen 2: Quiz -->
+    <section id="quiz" class="screen hidden">
+      <h2>Let’s see how well you know me 😏</h2>
+      <div id="question-box">
+        <p id="question"></p>
+        <div id="options"></div>
+      </div>
+    </section>
+
+    <!-- Screen 3: Reasons -->
+    <section id="reasons" class="screen hidden">
+      <h2>27 Funny & Romantic Reasons I Love You 💘</h2>
+      <div id="reason-text"></div>
+      <button id="nextReason">Next 💞</button>
+    </section>
+
+    <!-- Screen 4: Finale -->
+    <section id="final" class="screen hidden">
+      <h1>🎆 Happy 27th Birthday, Pakhi! 🎆</h1>
+      <p>6 years of laughter, friendship & love — you’re my favorite everything ❤️</p>
+
+      <div id="love-animation"></div>
+
+      <button id="celebrateBtn">Celebrate Again 🎊</button>
+      <button id="replayBtn">Replay 🔁</button>
+    </section>
+  </div>
+
+  <audio id="bg-music" loop>
+    <source src="https://cdn.pixabay.com/download/audio/2022/03/10/audio_6a356e7131.mp3?filename=happy-birthday-music-11489.mp3" type="audio/mp3">
+  </audio>
+
+  <script src="script.js"></script>
+</body>
+</html>
