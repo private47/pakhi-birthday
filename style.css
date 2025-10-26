@@ -1,8 +1,8 @@
-@import url('https://fonts.googleapis.com/css2?family=Fredoka+One&family=Poppins:wght@400;600&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Fredoka+One&family=Poppins:wght@400;600&display=swap");
 
 body {
   margin: 0;
-  font-family: 'Poppins', sans-serif;
+  font-family: "Poppins", sans-serif;
   background: linear-gradient(135deg, #ff9a9e, #fad0c4);
   color: #fff;
   text-align: center;
@@ -20,7 +20,9 @@ body {
   z-index: 2;
 }
 
-.hidden { display: none; }
+.hidden {
+  display: none !important;
+}
 
 /* Buttons */
 button {
@@ -34,10 +36,16 @@ button {
   cursor: pointer;
   transition: 0.3s;
 }
-button:hover { transform: scale(1.05); background-color: #ffe0eb; }
+button:hover {
+  transform: scale(1.05);
+  background-color: #ffe0eb;
+}
 
 /* --- INTRO --- */
-.fade-text { animation: fadeIn 2s ease-in; margin: 0 0 8px 0; }
+.fade-text {
+  animation: fadeIn 2s ease-in;
+  margin: 0 0 8px 0;
+}
 
 .typewriter {
   display: inline-block;
@@ -46,23 +54,44 @@ button:hover { transform: scale(1.05); background-color: #ffe0eb; }
   white-space: normal;
   word-break: break-word;
   overflow: hidden;
-  border-right: 3px solid rgba(255,255,255,0.9);
-  animation: typing 4s steps(40,end) forwards, blink 0.75s step-end 5;
+  border-right: 3px solid rgba(255, 255, 255, 0.9);
+  animation: typing 4s steps(40, end) forwards, blink 0.75s step-end 5;
   margin-top: 10px;
   transform: none;
 }
-@keyframes typing { from{width:0;} to{width:100%;} }
-@keyframes blink { 50%{border-color:transparent;} }
+@keyframes typing {
+  from {
+    width: 0;
+  }
+  to {
+    width: 100%;
+  }
+}
+@keyframes blink {
+  50% {
+    border-color: transparent;
+  }
+}
 
 .sparkles {
-  position: absolute; top: 0; left: 0;
-  width: 100%; height: 100%;
-  background: radial-gradient(circle at 50% 50%, rgba(255,255,255,0.12), transparent);
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(circle at 50% 50%, rgba(255, 255, 255, 0.12), transparent);
   animation: shimmer 4s infinite alternate;
   pointer-events: none;
   z-index: 0;
 }
-@keyframes shimmer { 0%{opacity:0.7;} 100%{opacity:1;} }
+@keyframes shimmer {
+  0% {
+    opacity: 0.7;
+  }
+  100% {
+    opacity: 1;
+  }
+}
 
 /* QUIZ */
 #question-box {
@@ -80,25 +109,42 @@ button:hover { transform: scale(1.05); background-color: #ffe0eb; }
   background: #fff;
   color: #ff4081;
 }
-button.correct { background:#a2ffb2; color:#006600; }
-button.wrong { background:#ffb3b3; color:#660000; animation: shake 0.4s; }
+button.correct {
+  background: #a2ffb2;
+  color: #006600;
+}
+button.wrong {
+  background: #ffb3b3;
+  color: #660000;
+  animation: shake 0.4s;
+}
 @keyframes shake {
-  0%,100%{transform:translateX(0);}
-  20%,60%{transform:translateX(-6px);}
-  40%,80%{transform:translateX(6px);}
+  0%,
+  100% {
+    transform: translateX(0);
+  }
+  20%,
+  60% {
+    transform: translateX(-6px);
+  }
+  40%,
+  80% {
+    transform: translateX(6px);
+  }
 }
 
 /* MEMORIES */
 #memory-container img {
-  width: 80%; max-width: 400px;
+  width: 80%;
+  max-width: 400px;
   border-radius: 20px;
-  box-shadow: 0 0 15px rgba(255,255,255,0.6);
+  box-shadow: 0 0 15px rgba(255, 255, 255, 0.6);
   opacity: 0;
 }
 #memory-caption {
   margin-top: 15px;
   font-size: 1.2em;
-  background: rgba(255,255,255,0.2);
+  background: rgba(255, 255, 255, 0.2);
   padding: 10px;
   border-radius: 12px;
   opacity: 0;
@@ -112,14 +158,20 @@ button.wrong { background:#ffb3b3; color:#660000; animation: shake 0.4s; }
   margin: 20px;
   box-shadow: 0 0 20px #ffb6c1;
   overflow: hidden;
-  width: 200px; height: 200px;
+  width: 200px;
+  height: 200px;
 }
-#pakhi-photo { width: 100%; height: 100%; object-fit: cover; }
+#pakhi-photo {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
 
 /* Secret Button */
 #secretBtn {
   position: fixed;
-  bottom: 15px; right: 15px;
+  bottom: 15px;
+  right: 15px;
   font-size: 26px;
   background: none;
   border: none;
@@ -128,13 +180,20 @@ button.wrong { background:#ffb3b3; color:#660000; animation: shake 0.4s; }
   z-index: 15;
 }
 @keyframes floatBtn {
-  0%,100%{transform:translateY(0);}50%{transform:translateY(-5px);}
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-5px);
+  }
 }
 
 /* Surprise Overlay */
 #surpriseOverlay {
-  position: fixed; inset: 0;
-  background: rgba(0,0,0,0.55);
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.55);
   backdrop-filter: blur(6px);
   display: flex;
   justify-content: center;
@@ -142,34 +201,62 @@ button.wrong { background:#ffb3b3; color:#660000; animation: shake 0.4s; }
   z-index: 30;
 }
 #surpriseBox {
-  background: rgba(255,255,255,0.2);
+  background: rgba(255, 255, 255, 0.2);
   border-radius: 20px;
   padding: 25px;
   max-width: 80%;
   color: #fff;
-  box-shadow: 0 0 20px rgba(255,255,255,0.4);
+  box-shadow: 0 0 20px rgba(255, 255, 255, 0.4);
   animation: fadeInUp 0.5s ease;
 }
 
 @keyframes fadeInUp {
-  from { opacity: 0; transform: translateY(20px); }
-  to { opacity: 1; transform: translateY(0); }
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 /* Floating hearts */
 #love-animation {
-  position: fixed; top: 0; left: 0;
-  width: 100%; height: 100%;
-  pointer-events: none; overflow: hidden; z-index: 1;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  overflow: hidden;
+  z-index: 1;
 }
 .love {
-  position: absolute; font-size: 2em; color: #ff4e88;
+  position: absolute;
+  font-size: 2em;
+  color: #ff4e88;
   animation: floatLove 5s linear infinite;
 }
 @keyframes floatLove {
-  0%{transform:translateY(100vh) scale(0.5);opacity:1;}
-  100%{transform:translateY(-10vh) scale(1.5);opacity:0;}
+  0% {
+    transform: translateY(100vh) scale(0.5);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(-10vh) scale(1.5);
+    opacity: 0;
+  }
 }
 
 /* fade helper */
-@keyframes fadeIn { from{opacity:0;transform:translateY(6px);} to{opacity:1;transform:translateY(0);} }
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
