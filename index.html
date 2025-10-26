@@ -15,7 +15,7 @@
       <h1 class="fade-text">🎉 Welcome to The 27th Birthday Experience 💕</h1>
       <p class="typewriter">Celebrating 27 years of <b>you</b> and 6 years of <b>us</b> 😍</p>
       <button id="startBtn">Start the Magic ✨</button>
-      <div class="sparkles"></div>
+      <div class="sparkles" aria-hidden="true"></div>
     </section>
 
     <!-- Screen 2: Quiz -->
@@ -52,12 +52,12 @@
       <div id="love-animation"></div>
 
       <!-- Hidden surprise -->
-      <div id="surprise" class="hidden">
+      <div id="surprise" class="hidden" role="dialog" aria-hidden="true">
         <p>💌 To my Pakhi — thank you for being the best chapter of my life 💕</p>
         <button id="closeSurprise">Close ✨</button>
       </div>
 
-      <button id="secretBtn">💌</button>
+      <button id="secretBtn" aria-label="Open surprise">💌</button>
     </section>
   </div>
 
