@@ -3,18 +3,19 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>The Birthday Experience 🎂</title>
+  <title>Pakhi’s 27th Birthday 🎂</title>
   <link rel="stylesheet" href="style.css" />
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
 </head>
 <body>
   <div id="app">
-    <!-- Screen 1 -->
+    <!-- Screen 1: Intro -->
     <section id="intro" class="screen">
-      <h1>🎉 Welcome to “The 27th Birthday Experience” 💕</h1>
-      <p>Celebrating 27 years of <b>you</b> and 6 years of <b>us</b> 😎</p>
-      <button id="startBtn">Start the Fun 🥳</button>
+      <h1 class="fade-text">🎉 Welcome to The 27th Birthday Experience 💕</h1>
+      <p class="typewriter">Celebrating 27 years of <b>you</b> and 6 years of <b>us</b> 😍</p>
+      <button id="startBtn">Start the Magic ✨</button>
+      <div class="sparkles"></div>
     </section>
 
     <!-- Screen 2: Quiz -->
@@ -26,22 +27,37 @@
       </div>
     </section>
 
-    <!-- Screen 3: Reasons -->
-    <section id="reasons" class="screen hidden">
-      <h2>27 Funny & Romantic Reasons I Love You 💘</h2>
-      <div id="reason-text"></div>
-      <button id="nextReason">Next 💞</button>
+    <!-- Screen 3: Memories Carousel -->
+    <section id="memories" class="screen hidden">
+      <h2>💞 Our Journey in Moments 💞</h2>
+      <div id="memory-container">
+        <img id="memory-photo" src="" alt="Memory" />
+        <p id="memory-caption"></p>
+      </div>
+      <button id="nextMemory">Next 💕</button>
     </section>
 
     <!-- Screen 4: Finale -->
     <section id="final" class="screen hidden">
       <h1>🎆 Happy 27th Birthday, Pakhi! 🎆</h1>
-      <p>6 years of laughter, friendship & love — you’re my favorite everything ❤️</p>
+      <p>You’re my favorite human, my peace, my chaos — and my forever 💖</p>
+
+      <div id="final-photo-frame">
+        <img src="images/pakhi-final.jpg" alt="Pakhi" id="pakhi-photo">
+      </div>
+
+      <button id="celebrateBtn">Celebrate Again 🎊</button>
+      <button id="replayBtn">Replay Journey 🔁</button>
 
       <div id="love-animation"></div>
 
-      <button id="celebrateBtn">Celebrate Again 🎊</button>
-      <button id="replayBtn">Replay 🔁</button>
+      <!-- Hidden surprise -->
+      <div id="surprise" class="hidden">
+        <p>💌 To my Pakhi — thank you for being the best chapter of my life 💕</p>
+        <button id="closeSurprise">Close ✨</button>
+      </div>
+
+      <button id="secretBtn">💌</button>
     </section>
   </div>
 
