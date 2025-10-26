@@ -8,8 +8,10 @@ document.addEventListener('DOMContentLoaded', () => {
   const bgMusic = document.getElementById("bg-music");
 
   const startBtn = document.getElementById("startBtn");
+  const questionBox = document.getElementById("question-box");
   const questionEl = document.getElementById("question");
   const optionsEl = document.getElementById("options");
+  const nextQBtn = document.getElementById("nextQBtn");
   const memoryPhoto = document.getElementById("memory-photo");
   const memoryCaption = document.getElementById("memory-caption");
   const nextMemoryBtn = document.getElementById("nextMemory");
@@ -17,38 +19,14 @@ document.addEventListener('DOMContentLoaded', () => {
   const celebrateBtn = document.getElementById("celebrateBtn");
   const loveContainer = document.getElementById("love-animation");
   const secretBtn = document.getElementById("secretBtn");
-  const surprise = document.getElementById("surprise");
+  const surpriseOverlay = document.getElementById("surpriseOverlay");
   const closeSurprise = document.getElementById("closeSurprise");
 
   const quizData = [
-    {
-      q: "Who made the first move? 😏",
-      options: ["You did", "I did", "The Universe did"],
-      answer: "You did",
-      correctMsg: "Exactly! You started this chaos 💕",
-      wrongMsg: "Nope 😜 You did! And I’m thankful you did."
-    },
-    {
-      q: "My go-to snack during movie night?",
-      options: ["Popcorn", "Fries", "Your leftover pizza 🍕"],
-      answer: "Your leftover pizza 🍕",
-      correctMsg: "Haha yes! You know my food habits too well 😋",
-      wrongMsg: "Wrong 😝 It’s your leftover pizza!"
-    },
-    {
-      q: "What’s my most iconic line?",
-      options: ["‘I’m not mad but…’", "‘Can you bring food?’", "‘Leave me alone!’"],
-      answer: "‘Can you bring food?’",
-      correctMsg: "Obviously! You + food = true love 🍔💖",
-      wrongMsg: "Nope 😂 I literally survive on that line!"
-    },
-    {
-      q: "If we were a movie, what genre would it be?",
-      options: ["Rom-Com", "Drama", "Stand-up Comedy"],
-      answer: "Rom-Com",
-      correctMsg: "Perfect! Comedy, chaos, and kisses 💞",
-      wrongMsg: "Close... but you know we’re a Rom-Com at heart 🎬"
-    }
+    { q: "Who made the first move? 😏", options: ["You did", "I did", "The Universe did"], answer: "You did", correctMsg: "Exactly! You started this chaos 💕", wrongMsg: "Nope 😜 You did! And I’m thankful you did." },
+    { q: "My go-to snack during movie night?", options: ["Popcorn", "Fries", "Your leftover pizza 🍕"], answer: "Your leftover pizza 🍕", correctMsg: "Haha yes! You know my food habits too well 😋", wrongMsg: "Wrong 😝 It’s your leftover pizza!" },
+    { q: "What’s my most iconic line?", options: ["‘I’m not mad but…’", "‘Can you bring food?’", "‘Leave me alone!’"], answer: "‘Can you bring food?’", correctMsg: "Obviously! You + food = true love 🍔💖", wrongMsg: "Nope 😂 I literally survive on that line!" },
+    { q: "If we were a movie, what genre would it be?", options: ["Rom-Com", "Drama", "Stand-up Comedy"], answer: "Rom-Com", correctMsg: "Perfect! Comedy, chaos, and kisses 💞", wrongMsg: "Close... but you know we’re a Rom-Com at heart 🎬" }
   ];
 
   const memories = [
@@ -67,77 +45,70 @@ document.addEventListener('DOMContentLoaded', () => {
   let quizIndex = 0;
   let memoryIndex = 0;
 
-  function showScreen(name) {
+  const showScreen = (name) => {
     Object.values(screens).forEach(s => s.classList.add("hidden"));
     screens[name].classList.remove("hidden");
-  }
+  };
 
-  // Typewriter end reveal
+  const fadeInElement = (el) => {
+    gsap.fromTo(el, { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: 0.6, ease: "power1.out" });
+  };
+
   const tw = document.querySelector('.typewriter');
-  if (tw) {
-    tw.addEventListener('animationend', (e) => {
-      if (e.animationName === 'typing') {
-        tw.style.borderRight = 'none';
-        gsap.to(startBtn, { opacity: 1, duration: 1, delay: 0.4 });
-      }
-    });
-  }
+  tw?.addEventListener('animationend', (e) => {
+    if (e.animationName === 'typing') {
+      tw.style.borderRight = 'none';
+      gsap.to(startBtn, { opacity: 1, duration: 1, delay: 0.4 });
+    }
+  });
 
   startBtn.addEventListener("click", () => {
-    if (bgMusic) {
-      bgMusic.volume = 0.9;
-      bgMusic.play().catch(()=>{});
-    }
+    bgMusic?.play().catch(()=>{});
     showScreen("quiz");
+    fadeInElement(questionBox);
     loadQuestion();
   });
 
-  // Quiz logic
-  function loadQuestion() {
-    if (quizIndex >= quizData.length) {
-      showScreen("memories");
-      showMemory();
-      return;
-    }
+  const loadQuestion = () => {
+    nextQBtn.classList.add("hidden");
+    if (quizIndex >= quizData.length) return showScreen("memories"), showMemory();
     const q = quizData[quizIndex];
     questionEl.textContent = q.q;
     optionsEl.innerHTML = "";
+    fadeInElement(questionBox);
     q.options.forEach(opt => {
       const btn = document.createElement("button");
       btn.textContent = opt;
       btn.onclick = () => handleAnswer(btn, opt === q.answer, q);
       optionsEl.appendChild(btn);
     });
-  }
+  };
 
-  function handleAnswer(btn, correct, q) {
+  const handleAnswer = (btn, correct, q) => {
     btn.classList.add(correct ? "correct" : "wrong");
     btn.textContent = correct ? q.correctMsg : q.wrongMsg;
     if (correct) confetti({ particleCount: 40, spread: 80, origin: { y: 0.7 } });
     optionsEl.querySelectorAll("button").forEach(b => b.disabled = true);
-    setTimeout(() => { quizIndex++; loadQuestion(); }, 2000);
-  }
+    nextQBtn.classList.remove("hidden");
+  };
 
-  // Memories carousel
-  function showMemory() {
-    if (memoryIndex >= memories.length) {
-      showScreen("final");
-      fireworks();
-      return;
-    }
+  nextQBtn.addEventListener("click", () => { quizIndex++; loadQuestion(); });
+
+  const showMemory = () => {
+    if (memoryIndex >= memories.length) return showScreen("final"), fireworks();
     const current = memories[memoryIndex];
     memoryPhoto.src = current.photo;
     memoryCaption.textContent = current.caption;
-    gsap.fromTo(memoryPhoto,{opacity:0,scale:0.9},{opacity:1,scale:1,duration:0.8});
-    gsap.fromTo(memoryCaption,{opacity:0,y:20},{opacity:1,y:0,duration:0.8});
-  }
+    fadeInElement(memoryPhoto);
+    fadeInElement(memoryCaption);
+  };
+
   nextMemoryBtn.addEventListener("click", () => { memoryIndex++; showMemory(); });
 
-  // Finale
   replayBtn.addEventListener("click", () => { quizIndex=0; memoryIndex=0; showScreen("intro"); });
   celebrateBtn.addEventListener("click", () => fireworks());
 
-  function startLoveAnimation() {
+  const startLoveAnimation = () => {
     setInterval(() => {
       const span = document.createElement("span");
       span.classList.add("love");
@@ -147,9 +118,9 @@ document.addEventListener('DOMContentLoaded', () => {
       loveContainer.appendChild(span);
       setTimeout(() => span.remove(), 7000);
     }, 400);
-  }
+  };
 
-  function fireworks() {
+  const fireworks = () => {
     const end = Date.now() + 3000;
     startLoveAnimation();
     (function frame() {
@@ -161,18 +132,14 @@ document.addEventListener('DOMContentLoaded', () => {
       });
       if (Date.now() < end) requestAnimationFrame(frame);
     })();
-  }
+  };
 
-  // Surprise
-  secretBtn.addEventListener("mouseenter", () => {
-    gsap.to(secretBtn,{scale:1.2,duration:0.3,yoyo:true,repeat:1});
-  });
   secretBtn.addEventListener("click", () => {
-    surprise.classList.remove("hidden");
-    gsap.fromTo(surprise,{scale:0.8,opacity:0},{scale:1,opacity:1,duration:0.4});
+    surpriseOverlay.classList.remove("hidden");
+    gsap.fromTo("#surpriseBox",{scale:0.8,opacity:0},{scale:1,opacity:1,duration:0.4});
   });
   closeSurprise.addEventListener("click", () => {
-    gsap.to(surprise,{opacity:0,duration:0.25,onComplete:()=>surprise.classList.add("hidden")});
+    gsap.to("#surpriseBox",{opacity:0,duration:0.25,onComplete:()=>surpriseOverlay.classList.add("hidden")});
   });
 
   showScreen('intro');
