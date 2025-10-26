@@ -53,25 +53,9 @@ button:hover {
   font-size: 1.1rem;
   white-space: normal;
   word-break: break-word;
-  overflow: visible;
-  border-right: 3px solid rgba(255, 255, 255, 0.9);
-  animation: typing 4s steps(40, end) forwards, blink 0.75s step-end 5;
   margin-top: 10px;
-  transform: none;
   line-height: 1.4;
-}
-@keyframes typing {
-  from {
-    width: 0;
-  }
-  to {
-    width: 100%;
-  }
-}
-@keyframes blink {
-  50% {
-    border-color: transparent;
-  }
+  animation: fadeIn 2.5s ease-in 0.5s both;
 }
 
 .sparkles {
