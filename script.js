@@ -20,7 +20,7 @@ const quizData = [
     q: "Who made the first move? 😏",
     options: ["You did", "I did", "The Universe did"],
     answer: "You did",
-    reaction: "Correct! You started the chaos 💕",
+    reaction: "Correct! I started the chaos 💕",
   },
   {
     q: "My go-to snack during movie night?",
@@ -92,9 +92,11 @@ function loadQuestion() {
     showReason();
     return;
   }
+
   const current = quizData[quizIndex];
   questionEl.textContent = current.q;
   optionsEl.innerHTML = "";
+
   current.options.forEach((opt) => {
     const btn = document.createElement("button");
     btn.textContent = opt;
@@ -108,10 +110,16 @@ function handleAnswer(correct, reaction) {
   msg.textContent = correct ? reaction : "Haha wrong 😜 but I still love you!";
   optionsEl.innerHTML = "";
   optionsEl.appendChild(msg);
-  setTimeout(() => {
+
+  // Add Next button instead of auto-moving
+  const nextBtn = document.createElement("button");
+  nextBtn.textContent =
+    quizIndex < quizData.length - 1 ? "Next Question 💫" : "See Why I Love You 💖";
+  nextBtn.onclick = () => {
     quizIndex++;
     loadQuestion();
-  }, 2000);
+  };
+  optionsEl.appendChild(nextBtn);
 }
 
 function showReason() {
