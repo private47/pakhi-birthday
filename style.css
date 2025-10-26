@@ -9,6 +9,9 @@ body {
   overflow: hidden;
 }
 
+/* make sure content stacks above subtle background elements */
+.screen { position: relative; z-index: 2; }
+
 .screen {
   display: flex;
   flex-direction: column;
@@ -33,24 +36,27 @@ button {
 }
 
 button:hover {
-  transform: scale(1.1);
+  transform: scale(1.05);
   background-color: #ffe0eb;
 }
 
 /* Intro */
 .fade-text {
   animation: fadeIn 2s ease-in;
+  margin: 0 0 8px 0;
 }
 
 .typewriter {
+  display: inline-block;         /* important: keep it inline-block so width animation works */
   overflow: hidden;
-  border-right: 3px solid #fff;
+  border-right: 3px solid rgba(255,255,255,0.9);
   white-space: nowrap;
-  animation: typing 4s steps(40, end), blink 0.75s step-end infinite;
+  animation: typing 4s steps(40, end) forwards, blink 0.75s step-end infinite;
   width: 0;
   margin-top: 10px;
 }
 
+/* ensure typing ends in visible state (forwards) */
 @keyframes typing {
   from { width: 0; }
   to { width: 100%; }
@@ -62,15 +68,18 @@ button:hover {
 
 .sparkles {
   position: absolute;
+  top: 0; left: 0;
   width: 100%;
   height: 100%;
-  background: radial-gradient(circle at 50% 50%, rgba(255,255,255,0.15), transparent);
+  background: radial-gradient(circle at 50% 50%, rgba(255,255,255,0.12), transparent);
   animation: shimmer 4s infinite alternate;
+  pointer-events: none;   /* <-- crucial: allow clicks to pass through */
+  z-index: 0;
 }
 
 @keyframes shimmer {
   0% { transform: scale(1); opacity: 0.7; }
-  100% { transform: scale(1.2); opacity: 1; }
+  100% { transform: scale(1.15); opacity: 1; }
 }
 
 /* Quiz */
@@ -116,6 +125,7 @@ button:hover {
   overflow: hidden;
   width: 200px;
   height: 200px;
+  background: linear-gradient(135deg, rgba(255,255,255,0.06), transparent);
 }
 
 #pakhi-photo {
@@ -132,6 +142,7 @@ button:hover {
   background: none;
   border: none;
   cursor: pointer;
+  z-index: 3;
 }
 
 #surprise {
@@ -142,6 +153,7 @@ button:hover {
   padding: 20px;
   max-width: 80%;
   box-shadow: 0 0 10px rgba(255,255,255,0.4);
+  z-index: 4;
 }
 
 /* Floating Hearts */
@@ -151,7 +163,7 @@ button:hover {
   width: 100%; height: 100%;
   pointer-events: none;
   overflow: hidden;
-  z-index: -1;
+  z-index: 1;
 }
 
 .love {
@@ -164,4 +176,10 @@ button:hover {
 @keyframes floatLove {
   0% { transform: translateY(100vh) scale(0.5); opacity: 1; }
   100% { transform: translateY(-10vh) scale(1.5); opacity: 0; }
+}
+
+/* small fadeIn helper */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(6px); }
+  to { opacity: 1; transform: translateY(0); }
 }
