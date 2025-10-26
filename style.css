@@ -9,9 +9,7 @@ body {
   overflow: hidden;
 }
 
-/* make sure content stacks above subtle background elements */
-.screen { position: relative; z-index: 2; }
-
+/* layout basics */
 .screen {
   display: flex;
   flex-direction: column;
@@ -19,10 +17,13 @@ body {
   align-items: center;
   height: 100vh;
   padding: 20px;
+  position: relative;
+  z-index: 2;
 }
 
 .hidden { display: none; }
 
+/* buttons */
 button {
   margin-top: 25px;
   padding: 12px 28px;
@@ -40,49 +41,41 @@ button:hover {
   background-color: #ffe0eb;
 }
 
-/* Intro */
-.fade-text {
-  animation: fadeIn 2s ease-in;
-  margin: 0 0 8px 0;
-}
+/* --- INTRO --- */
+.fade-text { animation: fadeIn 2s ease-in; margin: 0 0 8px 0; }
 
 .typewriter {
-  display: inline-block;         /* important: keep it inline-block so width animation works */
+  display: inline-block;
+  max-width: 90vw;
+  white-space: normal;
+  word-break: break-word;
   overflow: hidden;
   border-right: 3px solid rgba(255,255,255,0.9);
-  white-space: nowrap;
-  animation: typing 4s steps(40, end) forwards, blink 0.75s step-end infinite;
-  width: 0;
+  animation: typing 4s steps(40,end) forwards, blink 0.75s step-end 5;
   margin-top: 10px;
 }
 
-/* ensure typing ends in visible state (forwards) */
 @keyframes typing {
   from { width: 0; }
   to { width: 100%; }
 }
-
-@keyframes blink {
-  50% { border-color: transparent; }
-}
+@keyframes blink { 50% { border-color: transparent; } }
 
 .sparkles {
   position: absolute;
   top: 0; left: 0;
-  width: 100%;
-  height: 100%;
+  width: 100%; height: 100%;
   background: radial-gradient(circle at 50% 50%, rgba(255,255,255,0.12), transparent);
   animation: shimmer 4s infinite alternate;
-  pointer-events: none;   /* <-- crucial: allow clicks to pass through */
+  pointer-events: none;
   z-index: 0;
 }
-
 @keyframes shimmer {
   0% { transform: scale(1); opacity: 0.7; }
   100% { transform: scale(1.15); opacity: 1; }
 }
 
-/* Quiz */
+/* QUIZ */
 #question-box {
   background: rgba(255, 255, 255, 0.2);
   border-radius: 15px;
@@ -91,22 +84,27 @@ button:hover {
   max-width: 450px;
   margin-top: 20px;
 }
-
 #options button {
   display: block;
   margin: 10px auto;
   background: #fff;
   color: #ff4081;
 }
+button.correct { background:#a2ffb2; color:#006600; }
+button.wrong { background:#ffb3b3; color:#660000; animation: shake 0.4s; }
+@keyframes shake {
+  0%,100%{transform:translateX(0);}
+  20%,60%{transform:translateX(-6px);}
+  40%,80%{transform:translateX(6px);}
+}
 
-/* Memories */
+/* MEMORIES */
 #memory-container img {
   width: 80%;
   max-width: 400px;
   border-radius: 20px;
   box-shadow: 0 0 15px rgba(255,255,255,0.6);
 }
-
 #memory-caption {
   margin-top: 15px;
   font-size: 1.2em;
@@ -115,7 +113,7 @@ button:hover {
   border-radius: 12px;
 }
 
-/* Finale */
+/* FINALE */
 #final-photo-frame {
   border: 4px solid #fff;
   border-radius: 50%;
@@ -127,22 +125,23 @@ button:hover {
   height: 200px;
   background: linear-gradient(135deg, rgba(255,255,255,0.06), transparent);
 }
+#pakhi-photo { width: 100%; height: 100%; object-fit: cover; }
 
-#pakhi-photo {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-
+/* Secret Button */
 #secretBtn {
-  position: absolute;
-  bottom: 20px;
-  right: 20px;
-  font-size: 22px;
+  position: fixed;
+  bottom: 15px;
+  right: 15px;
+  font-size: 26px;
   background: none;
   border: none;
   cursor: pointer;
-  z-index: 3;
+  animation: floatBtn 3s ease-in-out infinite;
+  z-index: 20;
+}
+@keyframes floatBtn {
+  0%,100% { transform: translateY(0); }
+  50% { transform: translateY(-5px); }
 }
 
 #surprise {
@@ -165,21 +164,16 @@ button:hover {
   overflow: hidden;
   z-index: 1;
 }
-
 .love {
   position: absolute;
   font-size: 2em;
   color: #ff4e88;
   animation: floatLove 5s linear infinite;
 }
-
 @keyframes floatLove {
   0% { transform: translateY(100vh) scale(0.5); opacity: 1; }
   100% { transform: translateY(-10vh) scale(1.5); opacity: 0; }
 }
 
-/* small fadeIn helper */
-@keyframes fadeIn {
-  from { opacity: 0; transform: translateY(6px); }
-  to { opacity: 1; transform: translateY(0); }
-}
+/* fade helper */
+@keyframes fadeIn { from{opacity:0;transform:translateY(6px);} to{opacity:1;transform:translateY(0);} }
