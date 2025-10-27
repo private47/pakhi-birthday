@@ -23,23 +23,34 @@ document.addEventListener('DOMContentLoaded', () => {
   const closeSurprise = document.getElementById("closeSurprise");
 
   const quizData = [
-    { q: "Who made the first move? 😏", options: ["You did", "I did", "The Universe did"], answer: "You did", correctMsg: "Exactly! You started this chaos 💕", wrongMsg: "Nope 😜 You did! And I’m thankful you did." },
-    { q: "My go-to snack during movie night?", options: ["Popcorn", "Fries", "Your leftover pizza 🍕"], answer: "Your leftover pizza 🍕", correctMsg: "Haha yes! You know my food habits too well 😋", wrongMsg: "Wrong 😝 It’s your leftover pizza!" },
-    { q: "What’s my most iconic line?", options: ["‘I’m not mad but…’", "‘Can you bring food?’", "‘Leave me alone!’"], answer: "‘Can you bring food?’", correctMsg: "Obviously! You + food = true love 🍔💖", wrongMsg: "Nope 😂 I literally survive on that line!" },
-    { q: "If we were a movie, what genre would it be?", options: ["Rom-Com", "Drama", "Stand-up Comedy"], answer: "Rom-Com", correctMsg: "Perfect! Comedy, chaos, and kisses 💞", wrongMsg: "Close... but you know we’re a Rom-Com at heart 🎬" }
-  ];
+  { q: "Ke age somporker haat bariye6e? 🙂‍↔️", options: ["Tui", "Ami", "Destiny 🤭"], answer: "Destiny 🤭", correctMsg: "Akdm thikkkk 💕", wrongMsg: "Tui/Ami er thekeo eta destiny amader, tai vul answer 🥹" },
+  { q: "Amar favourite khabar bol 😤", options: ["Biriyani", "chinese", "Jeta tr vlo lage setai 🤭"], answer: "Jeta tr vlo lage setai 🤭", correctMsg: "Good boy, akdm thikkkk 😋", wrongMsg: "6iiii eta vul blliii 😤" },
+  { q: "Amar kon genre er movie sb theke vlo lge 😤", options: ["Crime/Thriller", "Romantic/Comedy", "Action and Action"], answer: "Crime/Thriller", correctMsg: "Good, eta vul bolte paris e naa jnii 🥹", wrongMsg: "I66e kore vul option press kre dkh6is nki 😒" },
+  { q: "Ebar bol ami kon deshe ghurte jete chai 😤", options: ["USA", "Japan/Korea", "Greece"], answer: "Greece", correctMsg: "Andaje thik bole6e 😤", wrongMsg: "Jantam eta tui janis naa 🤭" },
+  { q: "Amra ki adou konodin movie dkhte jbo cinema hall a? 😤", options: ["Noooo", "Yessss", "Etar third option nei 😤"], answer: "Yessss", correctMsg: "Thle kbe jbo date ta bll 😤", wrongMsg: "Jbo na kno haaa 😤" }
+];
 
   const memories = [
-    { photo: "images/1.jpg", caption: "The first time we met 💫" },
-    { photo: "images/2.jpg", caption: "Our first trip 🌄" },
-    { photo: "images/3.jpg", caption: "Midnight giggles 😂" },
-    { photo: "images/4.jpg", caption: "Lazy mornings with coffee ☕" },
-    { photo: "images/5.jpg", caption: "Your unstoppable laughter 💖" },
-    { photo: "images/6.jpg", caption: "Our small fights and bigger hugs 🫶" },
-    { photo: "images/7.jpg", caption: "Every time you caught me staring 😍" },
-    { photo: "images/8.jpg", caption: "You being effortlessly you 🌸" },
-    { photo: "images/9.jpg", caption: "Moments that feel like home 🏡" },
-    { photo: "images/10.jpg", caption: "Forever my favorite chapter 💞" },
+    { photo: "images/1.jpg", caption: "Amader 2jon er first selfie 2016 end a 😌" },
+    { photo: "images/2.jpg", caption: "First vodro vbe pic tule6ili amr sthe 🥹" },
+    { photo: "images/3.jpg", caption: "Mone a6e to etaa first aksthe kheye6ilmm esbb 🤭" },
+    { photo: "images/4.jpg", caption: "First Saraswati pujoy berono 🤭 but not as a couple, as a best friend 🤭" },
+    { photo: "images/5.jpg", caption: "First aksthe dhakuria jayoyaa 💖" },
+    { photo: "images/6.jpg", caption: "khb pochondoder 6obi tai dilam etaa 🤭" },
+    { photo: "images/7.jpg", caption: "First chumu diye pic tule6ili 🥹" },
+    { photo: "images/8.jpg", caption: "Puro lockdown evbe vcall a kete6ilo 🥹" },
+    { photo: "images/9.jpg", caption: "Lockdown er por first dekha 🥹" },
+    { photo: "images/10.jpg", caption: "Mone a6e to eta🤭 first tr bari te🤭" },
+    { photo: "images/11.jpg", caption: "First durga pujo te berono aksthe 🥹❤️" },
+    { photo: "images/12.jpg", caption: "First and last( er por mone hyna ge6i aar🤔) princep ghat a jayoya 🤭" },
+    { photo: "images/13.jpg", caption: "First bike a uthiye6ilm tke 🥹🥹" },
+    { photo: "images/14.jpg", caption: "First Saraswati pujo te berono as a couple 🤭❤️" },
+    { photo: "images/15.jpg", caption: "Tke chumu kheye pic kom a6e, tai eta dilm 🥹🤭" },
+    { photo: "images/16.jpg", caption: "Mone a6e to eta kothay aar ki ki hye6ilo 🤭🤭🤭" },
+    { photo: "images/17.jpg", caption: "Bristi te kom e berono hy, eta sundor besh 🤭" },
+    { photo: "images/18.jpg", caption: "Ei jama tai vule ge6ili jetay atto sundor akta pic a6e amader 😤❤️" },
+    { photo: "images/19.jpg", caption: "Oneeek lomba jhograr por dekha hye6ilo, mone a6e trr 😤😤" },
+    { photo: "images/20.jpg", caption: "Atto lomba journey er por amader last ghora kalipujoy ❤️😌 many more decades to go!" },
   ];
 
   let quizIndex = 0;
