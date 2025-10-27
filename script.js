@@ -1,6 +1,3 @@
-import { gsap } from "gsap"
-import confetti from "https://cdn.jsdelivr.net/npm/canvas-confetti"
-
 document.addEventListener("DOMContentLoaded", () => {
   const passwordModal = document.getElementById("passwordModal")
   const passwordInput = document.getElementById("passwordInput")
@@ -11,15 +8,19 @@ document.addEventListener("DOMContentLoaded", () => {
   const CORRECT_PASSWORD = "pakhi27" // Hardcoded password for fun
 
   const unlockApp = () => {
+    console.log("[v0] Password correct! Unlocking app...")
     passwordModal.classList.add("hidden")
     app.classList.remove("hidden")
   }
 
   passwordBtn.addEventListener("click", () => {
+    console.log("[v0] Password button clicked. Input value:", passwordInput.value)
     if (passwordInput.value === CORRECT_PASSWORD) {
+      console.log("[v0] Password matches!")
       passwordError.classList.add("hidden")
       unlockApp()
     } else {
+      console.log("[v0] Password incorrect!")
       passwordError.classList.remove("hidden")
       passwordInput.value = ""
       passwordInput.focus()
@@ -28,6 +29,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   passwordInput.addEventListener("keypress", (e) => {
     if (e.key === "Enter") {
+      console.log("[v0] Enter key pressed")
       passwordBtn.click()
     }
   })
@@ -95,14 +97,14 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   const fadeInElement = (el) => {
-    gsap.fromTo(el, { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: 0.6, ease: "power1.out" })
+    window.gsap.fromTo(el, { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: 0.6, ease: "power1.out" })
   }
 
   const tw = document.querySelector(".typewriter")
   tw?.addEventListener("animationend", (e) => {
     if (e.animationName === "typing") {
       tw.style.borderRight = "none"
-      gsap.to(startBtn, { opacity: 1, duration: 1, delay: 0.4 })
+      window.gsap.to(startBtn, { opacity: 1, duration: 1, delay: 0.4 })
     }
   })
 
@@ -131,7 +133,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const handleAnswer = (btn, correct, q) => {
     btn.classList.add(correct ? "correct" : "wrong")
     btn.textContent = correct ? q.correctMsg : q.wrongMsg
-    if (correct) confetti({ particleCount: 40, spread: 80, origin: { y: 0.7 } })
+    if (correct) window.confetti({ particleCount: 40, spread: 80, origin: { y: 0.7 } })
     optionsEl.querySelectorAll("button").forEach((b) => (b.disabled = true))
     nextQBtn.classList.remove("hidden")
   }
@@ -178,7 +180,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const end = Date.now() + 3000
     startLoveAnimation()
     ;(function frame() {
-      confetti({
+      window.confetti({
         particleCount: 8,
         spread: 70,
         origin: { y: 0.6 },
@@ -190,10 +192,14 @@ document.addEventListener("DOMContentLoaded", () => {
 
   secretBtn.addEventListener("click", () => {
     surpriseOverlay.classList.remove("hidden")
-    gsap.fromTo("#surpriseBox", { scale: 0.8, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.4 })
+    window.gsap.fromTo("#surpriseBox", { scale: 0.8, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.4 })
   })
   closeSurprise.addEventListener("click", () => {
-    gsap.to("#surpriseBox", { opacity: 0, duration: 0.25, onComplete: () => surpriseOverlay.classList.add("hidden") })
+    window.gsap.to("#surpriseBox", {
+      opacity: 0,
+      duration: 0.25,
+      onComplete: () => surpriseOverlay.classList.add("hidden"),
+    })
   })
 
   showScreen("intro")
