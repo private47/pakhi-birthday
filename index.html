@@ -3,25 +3,36 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Pakhi’s 27th Birthday 🎂</title>
+  <title>Pakhi's 27th Birthday 🎂</title>
   <link rel="stylesheet" href="style.css" />
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
 </head>
 
 <body>
+  <!-- Added password protection modal -->
+  <div id="passwordModal" class="password-modal">
+    <div class="password-box">
+      <h2>🔐 Enter Password</h2>
+      <p>This is a special birthday surprise 💕</p>
+      <input type="password" id="passwordInput" placeholder="Enter password..." />
+      <button id="passwordBtn">Enter 🎉</button>
+      <p id="passwordError" class="password-error hidden">Wrong password! Try again 😊</p>
+    </div>
+  </div>
+
   <div id="app">
     <!-- INTRO -->
     <section id="intro" class="screen">
-      <h1 class="fade-text">🎉 Welcome to The very small round of birthday wish 💕</h1>
-      <p class="typewriter">Celebrating 27 years (🤭) of <b>you</b> and 6 years of <b>us</b> 😍</p>
-      <button id="startBtn">Start ✨</button>
+      <h1 class="fade-text">🎉 Welcome to The 27th Birthday Experience 💕</h1>
+      <p class="typewriter">Celebrating 27 years of <b>you</b> and 6 years of <b>us</b> 😍</p>
+      <button id="startBtn">Start the Magic ✨</button>
       <div class="sparkles" aria-hidden="true"></div>
     </section>
 
     <!-- QUIZ -->
     <section id="quiz" class="screen hidden">
-      <h2>Ebar answer de question er thikthak 😤</h2>
+      <h2>Let's see how well you know me 😏</h2>
       <div id="question-box">
         <p id="question"></p>
         <div id="options"></div>
@@ -33,7 +44,7 @@
     <section id="memories" class="screen hidden">
       <h2>💞 Our Journey in Moments 💞</h2>
       <div id="memory-container">
-        <img id="memory-photo" src="" alt="Memory" />
+        <img id="memory-photo" src="/placeholder.svg" alt="Memory" />
         <p id="memory-caption"></p>
       </div>
       <button id="nextMemory">Next 💕</button>
@@ -41,8 +52,8 @@
 
     <!-- FINALE -->
     <section id="final" class="screen hidden">
-      <h1>🎆 Happy Birthday, Pakhi! 🎆</h1>
-      <p>Amar priyo manush and comfort zone jekhane sb k6u krte pari ami 😌💞</p>
+      <h1>🎆 Happy 27th Birthday, Pakhi! 🎆</h1>
+      <p>You're my favorite human, my peace, my chaos — and my forever 💖</p>
 
       <div id="final-photo-frame">
         <img src="images/pakhi-final.jpg" alt="Pakhi" id="pakhi-photo" />
@@ -59,7 +70,7 @@
     <!-- Surprise Overlay -->
     <div id="surpriseOverlay" class="hidden">
       <div id="surpriseBox">
-        <p>💌 To my Pakhi — thank you for being the best chapter of my life 💕 I love you onek onek oneeeeek❤️</p>
+        <p>💌 To my Pakhi — thank you for being the best chapter of my life 💕</p>
         <button id="closeSurprise">Close ✨</button>
       </div>
     </div>
