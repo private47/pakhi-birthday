@@ -5,7 +5,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const passwordError = document.getElementById("passwordError")
   const app = document.getElementById("app")
 
-  const CORRECT_PASSWORD = "pakhi27" // Hardcoded password for fun
+  const CORRECT_PASSWORD = "iloveyoupakhi" // Hardcoded password for fun
 
   const unlockApp = () => {
     console.log("[v0] Password correct! Unlocking app...")
@@ -146,10 +146,20 @@ document.addEventListener("DOMContentLoaded", () => {
   const showMemory = () => {
     if (memoryIndex >= memories.length) return showScreen("final"), fireworks()
     const current = memories[memoryIndex]
-    memoryPhoto.src = current.photo
-    memoryCaption.textContent = current.caption
-    fadeInElement(memoryPhoto)
-    fadeInElement(memoryCaption)
+
+    const loadingSpinner = document.getElementById("loadingSpinner")
+    loadingSpinner.classList.remove("hidden")
+    memoryPhoto.style.opacity = "0"
+
+    const img = new Image()
+    img.onload = () => {
+      memoryPhoto.src = current.photo
+      memoryCaption.textContent = current.caption
+      loadingSpinner.classList.add("hidden")
+      fadeInElement(memoryPhoto)
+      fadeInElement(memoryCaption)
+    }
+    img.src = current.photo
   }
 
   nextMemoryBtn.addEventListener("click", () => {
