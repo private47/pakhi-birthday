@@ -1,263 +1,213 @@
-@import url("https://fonts.googleapis.com/css2?family=Fredoka+One&family=Poppins:wght@400;600&display=swap");
+import { gsap } from "gsap"
+import confetti from "https://cdn.jsdelivr.net/npm/canvas-confetti"
 
-body {
-  margin: 0;
-  font-family: "Poppins", sans-serif;
-  background: linear-gradient(135deg, #ff9a9e, #fad0c4);
-  color: #fff;
-  text-align: center;
-  overflow-y: auto;
-}
+document.addEventListener("DOMContentLoaded", () => {
+  const passwordModal = document.getElementById("passwordModal")
+  const passwordInput = document.getElementById("passwordInput")
+  const passwordBtn = document.getElementById("passwordBtn")
+  const passwordError = document.getElementById("passwordError")
+  const app = document.getElementById("app")
 
-.screen {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  min-height: 100vh;
-  padding: 20px;
-  position: relative;
-  z-index: 2;
-}
+  const CORRECT_PASSWORD = "pakhi27" // Hardcoded password for fun
 
-#memories {
-  justify-content: flex-start;
-  padding-top: 40px;
-  padding-bottom: 80px;
-}
-
-#memory-container {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  width: 100%;
-  margin: 20px 0;
-}
-
-.hidden {
-  display: none !important;
-}
-
-/* Buttons */
-button {
-  margin-top: 25px;
-  padding: 12px 28px;
-  font-size: 18px;
-  border: none;
-  border-radius: 25px;
-  background: #fff;
-  color: #ff6f91;
-  cursor: pointer;
-  transition: 0.3s;
-}
-button:hover {
-  transform: scale(1.05);
-  background-color: #ffe0eb;
-}
-
-/* --- INTRO --- */
-.fade-text {
-  animation: fadeIn 2s ease-in;
-  margin: 0 0 8px 0;
-}
-
-.typewriter {
-  display: block;
-  max-width: 90vw;
-  font-size: 1.1rem;
-  white-space: normal;
-  word-break: break-word;
-  margin-top: 10px;
-  line-height: 1.4;
-  animation: fadeIn 2.5s ease-in 0.5s both;
-}
-
-.sparkles {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: radial-gradient(circle at 50% 50%, rgba(255, 255, 255, 0.12), transparent);
-  animation: shimmer 4s infinite alternate;
-  pointer-events: none;
-  z-index: 0;
-}
-@keyframes shimmer {
-  0% {
-    opacity: 0.7;
+  const unlockApp = () => {
+    passwordModal.classList.add("hidden")
+    app.classList.remove("hidden")
   }
-  100% {
-    opacity: 1;
-  }
-}
 
-/* QUIZ */
-#question-box {
-  background: rgba(255, 255, 255, 0.2);
-  border-radius: 15px;
-  padding: 25px;
-  width: 85%;
-  max-width: 460px;
-  margin-top: 20px;
-  opacity: 0;
-}
-#options button {
-  display: block;
-  margin: 10px auto;
-  background: #fff;
-  color: #ff4081;
-}
-button.correct {
-  background: #a2ffb2;
-  color: #006600;
-}
-button.wrong {
-  background: #ffb3b3;
-  color: #660000;
-  animation: shake 0.4s;
-}
-@keyframes shake {
-  0%,
-  100% {
-    transform: translateX(0);
-  }
-  20%,
-  60% {
-    transform: translateX(-6px);
-  }
-  40%,
-  80% {
-    transform: translateX(6px);
-  }
-}
+  passwordBtn.addEventListener("click", () => {
+    if (passwordInput.value === CORRECT_PASSWORD) {
+      passwordError.classList.add("hidden")
+      unlockApp()
+    } else {
+      passwordError.classList.remove("hidden")
+      passwordInput.value = ""
+      passwordInput.focus()
+    }
+  })
 
-/* MEMORIES */
-#memory-container img {
-  width: 80%;
-  max-width: 400px;
-  border-radius: 20px;
-  box-shadow: 0 0 15px rgba(255, 255, 255, 0.6);
-  opacity: 0;
-}
-#memory-caption {
-  margin-top: 15px;
-  font-size: 1.2em;
-  background: rgba(255, 255, 255, 0.2);
-  padding: 10px;
-  border-radius: 12px;
-  opacity: 0;
-}
+  passwordInput.addEventListener("keypress", (e) => {
+    if (e.key === "Enter") {
+      passwordBtn.click()
+    }
+  })
 
-/* FINALE */
-#final-photo-frame {
-  border: 4px solid #fff;
-  border-radius: 50%;
-  padding: 8px;
-  margin: 20px;
-  box-shadow: 0 0 20px #ffb6c1;
-  overflow: hidden;
-  width: 200px;
-  height: 200px;
-}
-#pakhi-photo {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
+  const screens = {
+    intro: document.getElementById("intro"),
+    quiz: document.getElementById("quiz"),
+    memories: document.getElementById("memories"),
+    final: document.getElementById("final"),
+  }
+  const bgMusic = document.getElementById("bg-music")
 
-/* Secret Button */
-#secretBtn {
-  position: fixed;
-  bottom: 15px;
-  right: 15px;
-  font-size: 26px;
-  background: none;
-  border: none;
-  cursor: pointer;
-  animation: floatBtn 3s ease-in-out infinite;
-  z-index: 15;
-}
-@keyframes floatBtn {
-  0%,
-  100% {
-    transform: translateY(0);
-  }
-  50% {
-    transform: translateY(-5px);
-  }
-}
+  const startBtn = document.getElementById("startBtn")
+  const questionBox = document.getElementById("question-box")
+  const questionEl = document.getElementById("question")
+  const optionsEl = document.getElementById("options")
+  const nextQBtn = document.getElementById("nextQBtn")
+  const memoryPhoto = document.getElementById("memory-photo")
+  const memoryCaption = document.getElementById("memory-caption")
+  const nextMemoryBtn = document.getElementById("nextMemory")
+  const replayBtn = document.getElementById("replayBtn")
+  const celebrateBtn = document.getElementById("celebrateBtn")
+  const loveContainer = document.getElementById("love-animation")
+  const secretBtn = document.getElementById("secretBtn")
+  const surpriseOverlay = document.getElementById("surpriseOverlay")
+  const closeSurprise = document.getElementById("closeSurprise")
 
-/* Surprise Overlay */
-#surpriseOverlay {
-  position: fixed;
-  inset: 0;
-  background: rgba(0, 0, 0, 0.55);
-  backdrop-filter: blur(6px);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  z-index: 30;
-}
-#surpriseBox {
-  background: rgba(255, 255, 255, 0.2);
-  border-radius: 20px;
-  padding: 25px;
-  max-width: 80%;
-  color: #fff;
-  box-shadow: 0 0 20px rgba(255, 255, 255, 0.4);
-  animation: fadeInUp 0.5s ease;
-}
+  const quizData = [
+    {
+      q: "Who made the first move? 😏",
+      options: ["You did", "I did", "The Universe did"],
+      answer: "You did",
+      correctMsg: "Exactly! You started this chaos 💕",
+      wrongMsg: "Nope 😜 You did! And I'm thankful you did.",
+    },
+    {
+      q: "My go-to snack during movie night?",
+      options: ["Popcorn", "Fries", "Your leftover pizza 🍕"],
+      answer: "Your leftover pizza 🍕",
+      correctMsg: "Haha yes! You know my food habits too well 😋",
+      wrongMsg: "Wrong 😝 It's your leftover pizza!",
+    },
+    {
+      q: "What's my most iconic line?",
+      options: ["'I'm not mad but…'", "'Can you bring food?'", "'Leave me alone!'"],
+      answer: "'Can you bring food?'",
+      correctMsg: "Obviously! You + food = true love 🍔💖",
+      wrongMsg: "Nope 😂 I literally survive on that line!",
+    },
+    {
+      q: "If we were a movie, what genre would it be?",
+      options: ["Rom-Com", "Drama", "Stand-up Comedy"],
+      answer: "Rom-Com",
+      correctMsg: "Perfect! Comedy, chaos, and kisses 💞",
+      wrongMsg: "Close... but you know we're a Rom-Com at heart 🎬",
+    },
+  ]
 
-@keyframes fadeInUp {
-  from {
-    opacity: 0;
-    transform: translateY(20px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
+  const memories = [
+    { photo: "images/1.jpg", caption: "The first time we met 💫" },
+    { photo: "images/2.jpg", caption: "Our first trip 🌄" },
+    { photo: "images/3.jpg", caption: "Midnight giggles 😂" },
+    { photo: "images/4.jpg", caption: "Lazy mornings with coffee ☕" },
+    { photo: "images/5.jpg", caption: "Your unstoppable laughter 💖" },
+    { photo: "images/6.jpg", caption: "Our small fights and bigger hugs 🫶" },
+    { photo: "images/7.jpg", caption: "Every time you caught me staring 😍" },
+    { photo: "images/8.jpg", caption: "You being effortlessly you 🌸" },
+    { photo: "images/9.jpg", caption: "Moments that feel like home 🏡" },
+    { photo: "images/10.jpg", caption: "Forever my favorite chapter 💞" },
+  ]
 
-/* Floating hearts */
-#love-animation {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  pointer-events: none;
-  overflow: hidden;
-  z-index: 1;
-}
-.love {
-  position: absolute;
-  font-size: 2em;
-  color: #ff4e88;
-  animation: floatLove 5s linear infinite;
-}
-@keyframes floatLove {
-  0% {
-    transform: translateY(100vh) scale(0.5);
-    opacity: 1;
-  }
-  100% {
-    transform: translateY(-10vh) scale(1.5);
-    opacity: 0;
-  }
-}
+  let quizIndex = 0
+  let memoryIndex = 0
 
-/* fade helper */
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-    transform: translateY(6px);
+  const showScreen = (name) => {
+    Object.values(screens).forEach((s) => s.classList.add("hidden"))
+    screens[name].classList.remove("hidden")
   }
-  to {
-    opacity: 1;
-    transform: translateY(0);
+
+  const fadeInElement = (el) => {
+    gsap.fromTo(el, { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: 0.6, ease: "power1.out" })
   }
-}
+
+  const tw = document.querySelector(".typewriter")
+  tw?.addEventListener("animationend", (e) => {
+    if (e.animationName === "typing") {
+      tw.style.borderRight = "none"
+      gsap.to(startBtn, { opacity: 1, duration: 1, delay: 0.4 })
+    }
+  })
+
+  startBtn.addEventListener("click", () => {
+    bgMusic?.play().catch(() => {})
+    showScreen("quiz")
+    fadeInElement(questionBox)
+    loadQuestion()
+  })
+
+  const loadQuestion = () => {
+    nextQBtn.classList.add("hidden")
+    if (quizIndex >= quizData.length) return showScreen("memories"), showMemory()
+    const q = quizData[quizIndex]
+    questionEl.textContent = q.q
+    optionsEl.innerHTML = ""
+    fadeInElement(questionBox)
+    q.options.forEach((opt) => {
+      const btn = document.createElement("button")
+      btn.textContent = opt
+      btn.onclick = () => handleAnswer(btn, opt === q.answer, q)
+      optionsEl.appendChild(btn)
+    })
+  }
+
+  const handleAnswer = (btn, correct, q) => {
+    btn.classList.add(correct ? "correct" : "wrong")
+    btn.textContent = correct ? q.correctMsg : q.wrongMsg
+    if (correct) confetti({ particleCount: 40, spread: 80, origin: { y: 0.7 } })
+    optionsEl.querySelectorAll("button").forEach((b) => (b.disabled = true))
+    nextQBtn.classList.remove("hidden")
+  }
+
+  nextQBtn.addEventListener("click", () => {
+    quizIndex++
+    loadQuestion()
+  })
+
+  const showMemory = () => {
+    if (memoryIndex >= memories.length) return showScreen("final"), fireworks()
+    const current = memories[memoryIndex]
+    memoryPhoto.src = current.photo
+    memoryCaption.textContent = current.caption
+    fadeInElement(memoryPhoto)
+    fadeInElement(memoryCaption)
+  }
+
+  nextMemoryBtn.addEventListener("click", () => {
+    memoryIndex++
+    showMemory()
+  })
+
+  replayBtn.addEventListener("click", () => {
+    quizIndex = 0
+    memoryIndex = 0
+    showScreen("intro")
+  })
+  celebrateBtn.addEventListener("click", () => fireworks())
+
+  const startLoveAnimation = () => {
+    setInterval(() => {
+      const span = document.createElement("span")
+      span.classList.add("love")
+      span.textContent = Math.random() > 0.5 ? "❤️" : "💖"
+      span.style.left = Math.random() * 100 + "vw"
+      span.style.animationDuration = 4 + Math.random() * 3 + "s"
+      loveContainer.appendChild(span)
+      setTimeout(() => span.remove(), 7000)
+    }, 400)
+  }
+
+  const fireworks = () => {
+    const end = Date.now() + 3000
+    startLoveAnimation()
+    ;(function frame() {
+      confetti({
+        particleCount: 8,
+        spread: 70,
+        origin: { y: 0.6 },
+        colors: ["#ff4e88", "#ffb6c1", "#fff", "#ff69b4"],
+      })
+      if (Date.now() < end) requestAnimationFrame(frame)
+    })()
+  }
+
+  secretBtn.addEventListener("click", () => {
+    surpriseOverlay.classList.remove("hidden")
+    gsap.fromTo("#surpriseBox", { scale: 0.8, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.4 })
+  })
+  closeSurprise.addEventListener("click", () => {
+    gsap.to("#surpriseBox", { opacity: 0, duration: 0.25, onComplete: () => surpriseOverlay.classList.add("hidden") })
+  })
+
+  showScreen("intro")
+})
