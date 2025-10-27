@@ -6,7 +6,7 @@ body {
   background: linear-gradient(135deg, #ff9a9e, #fad0c4);
   color: #fff;
   text-align: center;
-  overflow: hidden;
+  overflow-y: auto;
 }
 
 .screen {
@@ -14,10 +14,26 @@ body {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  height: 100vh;
+  min-height: 100vh;
   padding: 20px;
   position: relative;
   z-index: 2;
+}
+
+#memories {
+  justify-content: flex-start;
+  padding-top: 40px;
+  padding-bottom: 80px;
+}
+
+#memory-container {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  margin: 20px 0;
 }
 
 .hidden {
@@ -150,7 +166,6 @@ button.wrong {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  border-radius: 50%;
 }
 
 /* Secret Button */
