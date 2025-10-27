@@ -1,26 +1,59 @@
-document.addEventListener('DOMContentLoaded', () => {
+import { gsap } from "gsap"
+import confetti from "https://cdn.jsdelivr.net/npm/canvas-confetti"
+
+document.addEventListener("DOMContentLoaded", () => {
+  const passwordModal = document.getElementById("passwordModal")
+  const passwordInput = document.getElementById("passwordInput")
+  const passwordBtn = document.getElementById("passwordBtn")
+  const passwordError = document.getElementById("passwordError")
+  const app = document.getElementById("app")
+
+  const CORRECT_PASSWORD = "pakhi27" // Hardcoded password for fun
+
+  const unlockApp = () => {
+    passwordModal.classList.add("hidden")
+    app.classList.remove("hidden")
+  }
+
+  passwordBtn.addEventListener("click", () => {
+    if (passwordInput.value === CORRECT_PASSWORD) {
+      passwordError.classList.add("hidden")
+      unlockApp()
+    } else {
+      passwordError.classList.remove("hidden")
+      passwordInput.value = ""
+      passwordInput.focus()
+    }
+  })
+
+  passwordInput.addEventListener("keypress", (e) => {
+    if (e.key === "Enter") {
+      passwordBtn.click()
+    }
+  })
+
   const screens = {
     intro: document.getElementById("intro"),
     quiz: document.getElementById("quiz"),
     memories: document.getElementById("memories"),
     final: document.getElementById("final"),
-  };
-  const bgMusic = document.getElementById("bg-music");
+  }
+  const bgMusic = document.getElementById("bg-music")
 
-  const startBtn = document.getElementById("startBtn");
-  const questionBox = document.getElementById("question-box");
-  const questionEl = document.getElementById("question");
-  const optionsEl = document.getElementById("options");
-  const nextQBtn = document.getElementById("nextQBtn");
-  const memoryPhoto = document.getElementById("memory-photo");
-  const memoryCaption = document.getElementById("memory-caption");
-  const nextMemoryBtn = document.getElementById("nextMemory");
-  const replayBtn = document.getElementById("replayBtn");
-  const celebrateBtn = document.getElementById("celebrateBtn");
-  const loveContainer = document.getElementById("love-animation");
-  const secretBtn = document.getElementById("secretBtn");
-  const surpriseOverlay = document.getElementById("surpriseOverlay");
-  const closeSurprise = document.getElementById("closeSurprise");
+  const startBtn = document.getElementById("startBtn")
+  const questionBox = document.getElementById("question-box")
+  const questionEl = document.getElementById("question")
+  const optionsEl = document.getElementById("options")
+  const nextQBtn = document.getElementById("nextQBtn")
+  const memoryPhoto = document.getElementById("memory-photo")
+  const memoryCaption = document.getElementById("memory-caption")
+  const nextMemoryBtn = document.getElementById("nextMemory")
+  const replayBtn = document.getElementById("replayBtn")
+  const celebrateBtn = document.getElementById("celebrateBtn")
+  const loveContainer = document.getElementById("love-animation")
+  const secretBtn = document.getElementById("secretBtn")
+  const surpriseOverlay = document.getElementById("surpriseOverlay")
+  const closeSurprise = document.getElementById("closeSurprise")
 
   const quizData = [
   { q: "Ke age somporker haat bariye6e? 🙂‍↔️", options: ["Tui", "Ami", "Destiny 🤭"], answer: "Destiny 🤭", correctMsg: "Akdm thikkkk 💕", wrongMsg: "Tui/Ami er thekeo eta destiny amader, tai vul answer 🥹" },
@@ -53,105 +86,115 @@ document.addEventListener('DOMContentLoaded', () => {
     { photo: "images/20.jpg", caption: "Atto lomba journey er por amader last ghora kalipujoy ❤️😌 many more decades to go!" },
   ];
 
-  let quizIndex = 0;
-  let memoryIndex = 0;
+  let quizIndex = 0
+  let memoryIndex = 0
 
   const showScreen = (name) => {
-    Object.values(screens).forEach(s => s.classList.add("hidden"));
-    screens[name].classList.remove("hidden");
-  };
+    Object.values(screens).forEach((s) => s.classList.add("hidden"))
+    screens[name].classList.remove("hidden")
+  }
 
   const fadeInElement = (el) => {
-    gsap.fromTo(el, { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: 0.6, ease: "power1.out" });
-  };
+    gsap.fromTo(el, { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: 0.6, ease: "power1.out" })
+  }
 
-  const tw = document.querySelector('.typewriter');
-  tw?.addEventListener('animationend', (e) => {
-    if (e.animationName === 'typing') {
-      tw.style.borderRight = 'none';
-      gsap.to(startBtn, { opacity: 1, duration: 1, delay: 0.4 });
+  const tw = document.querySelector(".typewriter")
+  tw?.addEventListener("animationend", (e) => {
+    if (e.animationName === "typing") {
+      tw.style.borderRight = "none"
+      gsap.to(startBtn, { opacity: 1, duration: 1, delay: 0.4 })
     }
-  });
+  })
 
   startBtn.addEventListener("click", () => {
-    bgMusic?.play().catch(()=>{});
-    showScreen("quiz");
-    fadeInElement(questionBox);
-    loadQuestion();
-  });
+    bgMusic?.play().catch(() => {})
+    showScreen("quiz")
+    fadeInElement(questionBox)
+    loadQuestion()
+  })
 
   const loadQuestion = () => {
-    nextQBtn.classList.add("hidden");
-    if (quizIndex >= quizData.length) return showScreen("memories"), showMemory();
-    const q = quizData[quizIndex];
-    questionEl.textContent = q.q;
-    optionsEl.innerHTML = "";
-    fadeInElement(questionBox);
-    q.options.forEach(opt => {
-      const btn = document.createElement("button");
-      btn.textContent = opt;
-      btn.onclick = () => handleAnswer(btn, opt === q.answer, q);
-      optionsEl.appendChild(btn);
-    });
-  };
+    nextQBtn.classList.add("hidden")
+    if (quizIndex >= quizData.length) return showScreen("memories"), showMemory()
+    const q = quizData[quizIndex]
+    questionEl.textContent = q.q
+    optionsEl.innerHTML = ""
+    fadeInElement(questionBox)
+    q.options.forEach((opt) => {
+      const btn = document.createElement("button")
+      btn.textContent = opt
+      btn.onclick = () => handleAnswer(btn, opt === q.answer, q)
+      optionsEl.appendChild(btn)
+    })
+  }
 
   const handleAnswer = (btn, correct, q) => {
-    btn.classList.add(correct ? "correct" : "wrong");
-    btn.textContent = correct ? q.correctMsg : q.wrongMsg;
-    if (correct) confetti({ particleCount: 40, spread: 80, origin: { y: 0.7 } });
-    optionsEl.querySelectorAll("button").forEach(b => b.disabled = true);
-    nextQBtn.classList.remove("hidden");
-  };
+    btn.classList.add(correct ? "correct" : "wrong")
+    btn.textContent = correct ? q.correctMsg : q.wrongMsg
+    if (correct) confetti({ particleCount: 40, spread: 80, origin: { y: 0.7 } })
+    optionsEl.querySelectorAll("button").forEach((b) => (b.disabled = true))
+    nextQBtn.classList.remove("hidden")
+  }
 
-  nextQBtn.addEventListener("click", () => { quizIndex++; loadQuestion(); });
+  nextQBtn.addEventListener("click", () => {
+    quizIndex++
+    loadQuestion()
+  })
 
   const showMemory = () => {
-    if (memoryIndex >= memories.length) return showScreen("final"), fireworks();
-    const current = memories[memoryIndex];
-    memoryPhoto.src = current.photo;
-    memoryCaption.textContent = current.caption;
-    fadeInElement(memoryPhoto);
-    fadeInElement(memoryCaption);
-  };
+    if (memoryIndex >= memories.length) return showScreen("final"), fireworks()
+    const current = memories[memoryIndex]
+    memoryPhoto.src = current.photo
+    memoryCaption.textContent = current.caption
+    fadeInElement(memoryPhoto)
+    fadeInElement(memoryCaption)
+  }
 
-  nextMemoryBtn.addEventListener("click", () => { memoryIndex++; showMemory(); });
+  nextMemoryBtn.addEventListener("click", () => {
+    memoryIndex++
+    showMemory()
+  })
 
-  replayBtn.addEventListener("click", () => { quizIndex=0; memoryIndex=0; showScreen("intro"); });
-  celebrateBtn.addEventListener("click", () => fireworks());
+  replayBtn.addEventListener("click", () => {
+    quizIndex = 0
+    memoryIndex = 0
+    showScreen("intro")
+  })
+  celebrateBtn.addEventListener("click", () => fireworks())
 
   const startLoveAnimation = () => {
     setInterval(() => {
-      const span = document.createElement("span");
-      span.classList.add("love");
-      span.textContent = Math.random() > 0.5 ? "❤️" : "💖";
-      span.style.left = Math.random() * 100 + "vw";
-      span.style.animationDuration = 4 + Math.random() * 3 + "s";
-      loveContainer.appendChild(span);
-      setTimeout(() => span.remove(), 7000);
-    }, 400);
-  };
+      const span = document.createElement("span")
+      span.classList.add("love")
+      span.textContent = Math.random() > 0.5 ? "❤️" : "💖"
+      span.style.left = Math.random() * 100 + "vw"
+      span.style.animationDuration = 4 + Math.random() * 3 + "s"
+      loveContainer.appendChild(span)
+      setTimeout(() => span.remove(), 7000)
+    }, 400)
+  }
 
   const fireworks = () => {
-    const end = Date.now() + 3000;
-    startLoveAnimation();
-    (function frame() {
+    const end = Date.now() + 3000
+    startLoveAnimation()
+    ;(function frame() {
       confetti({
         particleCount: 8,
         spread: 70,
         origin: { y: 0.6 },
-        colors: ["#ff4e88","#ffb6c1","#fff","#ff69b4"],
-      });
-      if (Date.now() < end) requestAnimationFrame(frame);
-    })();
-  };
+        colors: ["#ff4e88", "#ffb6c1", "#fff", "#ff69b4"],
+      })
+      if (Date.now() < end) requestAnimationFrame(frame)
+    })()
+  }
 
   secretBtn.addEventListener("click", () => {
-    surpriseOverlay.classList.remove("hidden");
-    gsap.fromTo("#surpriseBox",{scale:0.8,opacity:0},{scale:1,opacity:1,duration:0.4});
-  });
+    surpriseOverlay.classList.remove("hidden")
+    gsap.fromTo("#surpriseBox", { scale: 0.8, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.4 })
+  })
   closeSurprise.addEventListener("click", () => {
-    gsap.to("#surpriseBox",{opacity:0,duration:0.25,onComplete:()=>surpriseOverlay.classList.add("hidden")});
-  });
+    gsap.to("#surpriseBox", { opacity: 0, duration: 0.25, onComplete: () => surpriseOverlay.classList.add("hidden") })
+  })
 
-  showScreen('intro');
-});
+  showScreen("intro")
+})
